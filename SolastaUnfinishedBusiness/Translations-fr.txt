@@ -1,0 +1,11 @@
+Screen/&SpellSlotsUsedLongDescription	Vous avez utilisé {0} long repos à ce niveau.
+Screen/&SpellSlotsUsedShortDescription	Vous avez utilisé {0} repos court à ce niveau.
+Screen/&SpellSlotsUsedShortLongDescription	Vous avez utilisé {0} repos court à ce niveau et {1} long repos.
+Format/&LevelAndExperienceFormat	Niveau: {0}\nExperience: {1}\n{2} points requis pour atteindre le niveau {3}
+Format/&LevelAndExperienceMaxedFormat	Niveau: {0}\nExperience: {1}\nmax niveau atteint.
+MainMenu/&ExportPdfTitle	Baisser de niveau
+MainMenu/&ExportPdfDescription	Baisser le niveau de ce Personnage
+RestActivity/&ZSLevelDownTitle	Baisser le niveau
+RestActivity/&ZSLevelDownDescription	Baisser le niveau de ce Personnage
+Message/&ZSLevelDownConfirmationTitle	Baisser le niveau
+Message/&ZSLevelDownConfirmationDescription	Baisser le niveau du Personnage ?

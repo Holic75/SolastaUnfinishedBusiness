@@ -1,0 +1,13 @@
+{
+	"Id": "SolastaUnfinishedBusiness",
+	"DisplayName": "Unfinished Business",
+	"Author": "Zappastuff",
+	"Version": "1.2.15.6",
+	"ManagerVersion": "0.23.4",
+	"Requirements": [ "SolastaModApi" ],
+	"LoadAfter": [ "SolastaModApi" ],
+	"AssemblyName": "SolastaUnfinishedBusiness.dll",
+	"EntryMethod": "SolastaUnfinishedBusiness.Main.Load",
+	"Repository": "https://raw.githubusercontent.com/ThyWoof/SolastaUnfinishedBusiness/main/SolastaUnfinishedBusiness/Repository.json",
+	"HomePage": "https://www.nexusmods.com/solastacrownofthemagister/mods/180"
+}

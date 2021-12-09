@@ -1,0 +1,63 @@
+Screen/&SpellSlotsUsedLongDescription	You have expended {0} long-rest slot(s) of this level.
+Screen/&SpellSlotsUsedShortDescription	You have expended {0} short-rest slot(s) of this level.
+Screen/&SpellSlotsUsedShortLongDescription	You have expended {0} short-rest slot(s) and {1} long-rest slot(s) of this level.
+Format/&LevelAndExperienceFormat	Level: {0}\nExperience: {1}\n{2} points required to reach level {3}
+Format/&LevelAndExperienceMaxedFormat	Level: {0}\nExperience: {1}\nmax level reached.
+MainMenu/&ExportPdfTitle	Level Down
+MainMenu/&ExportPdfDescription	Level down this Hero
+RestActivity/&ZSLevelDownTitle	Level Down
+RestActivity/&ZSLevelDownDescription	Level down this Hero
+Message/&ZSLevelDownConfirmationTitle	Level Down
+Message/&ZSLevelDownConfirmationDescription	Level down this Hero?
+Class/&ClassWarlockTitle	Warlock
+Class/&ClassWarlockDescription	Warlocks are seekers of the knowledge that lies hidden in the fabric of the multiverse. Through pacts made with mysterious beings of supernatural power, warlocks unlock magical effects both subtle and spectacular.
+Feature/&ClassWarlockSubclassFiendPatronMagicAffinityTitle	Fiend Patron Additional Spells
+Feature/&ClassWarlockSubclassFiendPatronMagicAffinityDescription	1st level: burning hands, bane\n2nd level: blindness, scorching ray\n3rd level: fireball, stinking cloud\n4th level: fire shield, wall of fire\n5th level: flame strike, cloudkill
+Subclass/&ClassWarlockPatronTitle	Otherwordly Patron
+Subclass/&ClassWarlockPatronDescription	A warlock is defined by a pact with an otherworldly being. Sometimes the relationship between warlock and patron is like that of a cleric and a deity, though the beings that serve as patrons are not gods
+Subclass/&ClassWarlockSubclassFiendPatronTitle	Fiend Patron
+Subclass/&ClassWarlockSubclassFiendPatronDescription	You have made a pact with a fiend from the lower planes of existence, a being whose aims are evil, even if you strive against those aims. Such beings desire the corruption or destruction of all things, ultimately including you. Fiends powerful enough to forge a pact include demon lords such as Demogorgon, Orcus, Fraz'Urb-luu, and Baphomet; archdevils such as Asmodeus, Dispater, Mephistopheles, and Belial; pit fiends and balors that are especially mighty; and ultroloths and other lords of the yugoloths.
+Feature/&ClassWarlockArmorProficiencyTitle	Warlock Armor Proficiencies
+Feature/&ClassWarlockArmorProficiencyDescription	Light Armor
+Feature/&ClassWarlockWeaponProficiencyTitle	Warlock Weapon Proficiencies
+Feature/&ClassWarlockWeaponProficiencyDescription	Simple Weapons
+Feature/&ClassWarlockToolsProficiencyTitle	Warlock Magical Crafting
+Feature/&ClassWarlockToolsProficiencyDescription	You have been trained to brew herbal remedies and use enchanting equipment
+Feature/&ClassWarlockSavingThrowProficiencyTitle	Saving Throws Proficiencies
+Feature/&ClassWarlockSavingThrowProficiencyDescription	Wisdom, Charisma
+Feature/&ClassWarlockSkillProficiencyTitle	Warlock Skills
+Feature/&ClassWarlockSkillProficiencyDescription	Choose 2 of these skills: Arcana, Deception, History, Intimidation, Investigation, Nature, and Religion
+Feature/&ClassWarlockSpellcastingTitle	Warlock Pact Magic
+Feature/&ClassWarlockSpellcastingDescription	Your arcane research and the magic bestowed on you by your otherwordly patron have given you facility with spells
+Stage/&SubclassSelectionStagePatronHeader	Warlock Otherwordly Patrons
+Stage/&SubclassSelectionStagePatronTitle	Otherwordly Patrons
+Stage/&SubclassSelectionStagePatronDescription	A warlock is defined by a pact with an otherworldly being. Sometimes the relationship between warlock and patron is like that of a cleric and a deity, though the beings that serve as patrons are not gods
+Stage/&SubclassSelectionStagePatronFeatures	Otherwordly Patrons Features
+Feature/&ClassWarlockEldritchInvocationSetLevel2Title Eldritch Invocation
+Feature/&ClassWarlockEldritchInvocationSetLevel2Description Add an eldritch invocation.
+Feature/&ClassWarlockEldritchInvocationSetLevel5Title Eldritch Invocation
+Feature/&ClassWarlockEldritchInvocationSetLevel5Description Add an eldritch invocation.
+Feature/&ClassWarlockEldritchInvocationSetLevel7Title Eldritch Invocation
+Feature/&ClassWarlockEldritchInvocationSetLevel7Description Add an eldritch invocation.
+Feature/&ClassWarlockEldritchInvocationSetLevel9Title Eldritch Invocation
+Feature/&ClassWarlockEldritchInvocationSetLevel9Description Add an eldritch invocation.
+Feature/&ClassWarlockEldritchInvocationArmorOfShadowsPowerTitle	Armor of shadows
+Feature/&ClassWarlockEldritchInvocationArmorOfShadowsPowerDescription	You can cast mage armor on yourself at will, without expending a spell slot or material components.
+Feature/&ClassWarlockEldritchInvocationEldritchSightPowerTitle Eldritch sight
+Feature/&ClassWarlockEldritchInvocationEldritchSightPowerDescription You can cast detect magic at will, without expending a spell slot.
+Feature/&ClassWarlockEldritchInvocationFiendishVigorPowerTitle Fiendish vigor
+Feature/&ClassWarlockEldritchInvocationFiendishVigorPowerDescription You can cast false life on yourself at will as a 1st-level spell, without expending a spell slot or material components.
+Feature/&ClassWarlockEldritchInvocationAscendentStepPowerTitle Ascendent Step
+Feature/&ClassWarlockEldritchInvocationAscendentStepPowerDescription You can cast levitate on yourself at will, without expending a spell slot or material components. (Prerequisite: 9th level)
+Feature/&ClassWarlockEldritchInvocationOtherwordlyLeapPowerTitle Otherwordly leap
+Feature/&ClassWarlockEldritchInvocationOtherwordlyLeapPowerDescription You can cast jump on yourself at will, without expending a spell slot or material components. (Prerequisite: 9th level)
+Feature/&ClassWarlockEldritchInvocationDevilsSightPowerTitle Devils Sight
+Feature/&ClassWarlockEldritchInvocationDevilsSightPowerDescription You gain darkvision to a distance of 120 feet. (Mod note, likely impossible to make it also able to see through magical darkness).
+Feature/&ClassWarlockEldritchInvocationBeguilingInfluenceTitle Beguiling Influence
+Feature/&ClassWarlockEldritchInvocationBeguilingInfluenceDescription You gain proficiency in the Deception and Persuasion skills. Mod note, don't take this if you already have proficiency in them :).
+Feature/&ClassWarlockEldritchInvocationAgnoizingBlastTitle Agonizing blast
+Feature/&ClassWarlockEldritchInvocationAgnoizingBlastDescription This invocation does nothing, it's intended that you take the Agonizing blast cantrip at level 1 and this at level 2 since there doesn't seem to be a good way to override a cantrip in a casters list.
+Feature/&ClassWarlockEldritchInvocationRepellingBlastTitle Repelling blast
+Feature/&ClassWarlockEldritchInvocationRepellingBlastDescription When you hit a creature with eldritch blast, you can push the creature up to 10 feet away from you in a straight line.  Mod note - This gives a free at will power to push a creature 10ft, try not to cheat with it and use it against targets you hit with Eldritch blast only :).  Adding in a whole new reaction choice on eldritch blast hitting would be crazy to implement.
+Feature/&ClassWarlockEldritchInvocationThirstingBladeTitle Thirsting blade
+Feature/&ClassWarlockEldritchInvocationThirstingBladeDescription You can attack with your pact weapon twice, instead of once, whenever you take the Attack action on your turn. (Supposed to have a Prerequisite of Pact of the blade, but it's not enforced).

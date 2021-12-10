@@ -231,11 +231,12 @@ namespace SolastaUnfinishedBusiness.Models
 
             if (LevelingUp)
             {
-                //
-                // TODO: fix SC heroes here
-                //
-
+                var firstClassName = selectedHero.ClassesHistory[0].Name;
                 var selectedClassName = selectedClass.Name;
+
+                featuresToReplace.TryGetValue(selectedClassName, out var featureNamesToReplace);
+                featuresToExclude.TryGetValue(selectedClassName, out var featureNamesToExclude);
+                extraAttacksToExclude.TryGetValue(selectedClassName, out var extraAttackNameToExclude);
 
                 foreach (var featureUnlock in featureUnlockByLevels)
                 {
@@ -245,35 +246,35 @@ namespace SolastaUnfinishedBusiness.Models
                     var foundFeatureToReplace = false;
                     var foundExtraAttackToExclude = false;
 
-                    // replace proficiencies that need to be
-                    featuresToReplace.TryGetValue(selectedClassName, out var featureNamesToReplace);
-
-                    if (featureNamesToReplace != null)
+                    if (firstClassName != selectedClassName)
                     {
-                        foreach (var featureNameToReplace in featureNamesToReplace)
+                        // replace proficiencies that need to be
+                        if (featureNamesToReplace != null)
                         {
-                            if (featureNameToReplace.Key == featureUnlock.FeatureDefinition.Name)
+                            foreach (var featureNameToReplace in featureNamesToReplace)
                             {
-                                var newFeatureDefinition = DatabaseRepository.GetDatabase<FeatureDefinition>().GetElement(featureNameToReplace.Value);
+                                if (featureNameToReplace.Key == featureUnlock.FeatureDefinition.Name)
+                                {
+                                    var newFeatureDefinition = DatabaseRepository.GetDatabase<FeatureDefinition>().GetElement(featureNameToReplace.Value);
 
-                                filteredFeatureUnlockByLevels.Add(new FeatureUnlockByLevel(newFeatureDefinition, featureUnlock.Level));
-                                foundFeatureToReplace = true;
+                                    filteredFeatureUnlockByLevels.Add(new FeatureUnlockByLevel(newFeatureDefinition, featureUnlock.Level));
+                                    foundFeatureToReplace = true;
+                                }
                             }
                         }
-                    }
 
-                    // check if proficiencies should be excluded
-                    featuresToExclude.TryGetValue(selectedClassName, out var featureNamesToExclude);
+                        // check if proficiencies should be excluded
+                        if (featureNamesToExclude != null)
+                        {
+                            foundFeatureToExclude = featureNamesToExclude.Exists(x => x == featureDefinitionName);
+                        }
 
-                    if (featureNamesToExclude != null)
-                    {
-                        foundFeatureToExclude = featureNamesToExclude.Exists(x => x == featureDefinitionName);
                     }
 
                     // check if extra attacks should be excluded
                     if (Main.Settings.EnableNonStackingExtraAttacks)
                     {
-                        extraAttacksToExclude.TryGetValue(selectedClassName, out var extraAttackNameToExclude);
+
                         foundExtraAttackToExclude = extraAttackNameToExclude == featureDefinitionName && AttacksNumberAttribute?.ActiveModifiers.Count > 0
                             && !(selectedClass.Name == "Fighter" && (SelectedClassLevel == 11 || SelectedClassLevel == 20));
                     }
@@ -284,6 +285,7 @@ namespace SolastaUnfinishedBusiness.Models
                         filteredFeatureUnlockByLevels.Add(featureUnlock);
                     }
                 }
+
                 return filteredFeatureUnlockByLevels;
             }
             else

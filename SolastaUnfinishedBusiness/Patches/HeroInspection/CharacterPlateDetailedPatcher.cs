@@ -23,8 +23,8 @@ namespace SolastaUnfinishedBusiness.Patches
                     classesCount = __instance.GuiCharacter.Snapshot.Classes.Length;
                 }
 
+                __instance.classLabel.Text = Models.GameUi.GetAllClassesLabel(__instance.GuiCharacter, separator) ?? __instance.classLabel.Text;
                 __instance.classLabel.TMP_Text.fontSize = Models.GameUi.GetFontSize(classesCount);
-                __instance.classLabel.Text = Models.GameUi.GetAllClassesLabel(__instance.GuiCharacter, __instance.classLabel.Text, separator);
             }
         }
     }

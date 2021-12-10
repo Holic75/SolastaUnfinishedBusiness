@@ -18,7 +18,7 @@ namespace SolastaUnfinishedBusiness.Patches
         {
             internal static void Postfix(GuiCharacter __instance, ref string __result)
             {
-                __result = Models.GameUi.GetAllClassesLabel(__instance, __result, " - ");
+                __result = Models.GameUi.GetAllClassesLabel(__instance, " - ") ?? __result;
             }
         }
 
@@ -27,7 +27,7 @@ namespace SolastaUnfinishedBusiness.Patches
         {
             internal static void Postfix(GuiCharacter __instance, ref string __result)
             {
-                __result = Models.GameUi.GetAllClassesLabel(__instance, __result, " - ");
+                __result = Models.GameUi.GetAllClassesLabel(__instance, " - ") ?? __result;
             }
         }
 

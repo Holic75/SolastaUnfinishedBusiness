@@ -12,6 +12,7 @@ namespace SolastaUnfinishedBusiness.Builders
 
         private const string PointPoolRangerSkillPointsMulticlassName = "PointPoolRangerSkillPointsMulticlass";
         private const string PointPoolRangerSkillPointsMulticlassGuid = "096e4e01b52b490e807cf8d458845aa5";
+
         private const string PointPoolRogueSkillPointsMulticlassName = "PointPoolRogueSkillPointsMulticlass";
         private const string PointPoolRogueSkillPointsMulticlassGuid = "451259da8c5c41f4b1b363f00b01be4e";
 

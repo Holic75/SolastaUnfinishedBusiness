@@ -46,11 +46,11 @@ namespace SolastaUnfinishedBusiness.Models
 
         internal static bool ApproveMultiClassInOut(RulesetCharacterHero hero, CharacterClassDefinition classDefinition)
         {
-            var strength = hero.GetAttribute(AttributeDefinitions.Strength).CurrentValue;
-            var dexterity = hero.GetAttribute(AttributeDefinitions.Dexterity).CurrentValue;
-            var intelligence = hero.GetAttribute(AttributeDefinitions.Intelligence).CurrentValue;
-            var wisdom = hero.GetAttribute(AttributeDefinitions.Wisdom).CurrentValue;
-            var charisma = hero.GetAttribute(AttributeDefinitions.Charisma).CurrentValue;
+            var strength = hero.GetAttribute(AttributeDefinitions.Strength).BaseValue;
+            var dexterity = hero.GetAttribute(AttributeDefinitions.Dexterity).BaseValue;
+            var intelligence = hero.GetAttribute(AttributeDefinitions.Intelligence).BaseValue;
+            var wisdom = hero.GetAttribute(AttributeDefinitions.Wisdom).BaseValue;
+            var charisma = hero.GetAttribute(AttributeDefinitions.Charisma).BaseValue;
 
             if (classDefinition.GuiPresentation.Hidden)
             {

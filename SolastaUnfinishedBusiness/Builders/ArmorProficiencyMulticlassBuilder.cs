@@ -8,8 +8,10 @@ namespace SolastaUnfinishedBusiness.Builders
     {
         private const string BarbarianArmorProficiencyMulticlassName = "BarbarianArmorProficiencyMulticlass";
         private const string BarbarianArmorProficiencyMulticlassGuid = "5dffec907a424fccbfec103344421b51";
+
         private const string FighterArmorProficiencyMulticlassName = "FighterArmorProficiencyMulticlass";
         private const string FighterArmorProficiencyMulticlassGuid = "5df5ec907a424fccbfec103344421b51";
+
         private const string PaladinArmorProficiencyMulticlassName = "PaladinArmorProficiencyMulticlass";
         private const string PaladinArmorProficiencyMulticlassGuid = "69b18e44aabd4acca702c05f9d6c7fcb";
 

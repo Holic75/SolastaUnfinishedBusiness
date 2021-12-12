@@ -49,6 +49,7 @@ namespace SolastaUnfinishedBusiness.Patches
                                 {
                                     continue;
                                 }
+
                                 activeModifier.Value = hero.ClassesAndLevels[Sorcerer];
                             }
 

@@ -13,46 +13,35 @@ namespace SolastaUnfinishedBusiness.Models
             return fontSizes[classesCount % 5];
         }
 
-        internal static string GetAllSubclassesLabel(GuiCharacter character, string defaultLabel = "", string separator = "\n")
+        internal static string GetAllSubclassesLabel(GuiCharacter character)
         {
             var builder = new StringBuilder();
-            var hero = character?.RulesetCharacterHero;
+            var hero = character.RulesetCharacterHero;
 
-            if (hero == null)
+            foreach (var characterClassDefinition in hero.ClassesAndLevels.Keys)
             {
-                return string.Empty;
-            }
-            else if (hero.ClassesAndLevels.Count <= 1)
-            {
-                return defaultLabel;
-            }
-            else
-            {
-                foreach (var characterClassDefinition in hero.ClassesAndLevels.Keys)
+                if (hero.ClassesAndSubclasses.ContainsKey(characterClassDefinition) == true)
                 {
-                    string text;
-
-                    if (hero.ClassesAndSubclasses.ContainsKey(characterClassDefinition) == true)
-                    {
-                        text = hero.ClassesAndSubclasses[characterClassDefinition].FormatTitle();
-                    }
-                    else
-                    {
-                        text = characterClassDefinition.FormatTitle() + "/" + hero.ClassesAndLevels[characterClassDefinition];
-                    }
-
-                    builder.Append(text);
-                    builder.Append(separator);
+                    builder.Append(hero.ClassesAndSubclasses[characterClassDefinition].FormatTitle());
                 }
+                else
+                {
+                    builder.Append(characterClassDefinition.FormatTitle());
+                    builder.Append("/");
+                    builder.Append(hero.ClassesAndLevels[characterClassDefinition]);
+                }
+
+                builder.Append("\n");
             }
 
-            return builder.Remove(builder.Length - separator.Length, separator.Length).ToString();
+            return builder.ToString();
         }
 
-        internal static string GetAllClassesLabel(GuiCharacter character, string defaultLabel = "", string separator = "\n")
+        internal static string GetAllClassesLabel(GuiCharacter character, string separator = "\n")
         {
             var builder = new StringBuilder();
             var snapshot = character?.Snapshot;
+            var hero = character?.RulesetCharacterHero;
 
             if (snapshot != null)
             {
@@ -64,31 +53,22 @@ namespace SolastaUnfinishedBusiness.Models
                     builder.Append(separator);
                 }
             }
-            else
+            else if (hero != null && hero.ClassesAndLevels.Count > 1)
             {
-                var hero = character?.RulesetCharacterHero;
-
-                if (hero == null)
+                foreach (var characterClassDefinition in hero.ClassesAndLevels.Keys)
                 {
-                    return string.Empty;
-                }
-                else if (hero.ClassesAndLevels.Count <= 1)
-                {
-                    return defaultLabel;
-                }
-                else
-                {
-                    foreach (var characterClassDefinition in hero.ClassesAndLevels.Keys)
-                    {
-                        var text = characterClassDefinition.FormatTitle() + "/" + hero.ClassesAndLevels[characterClassDefinition];
-
-                        builder.Append(text);
-                        builder.Append(separator);
-                    }
+                    builder.Append(characterClassDefinition.FormatTitle());
+                    builder.Append("/");
+                    builder.Append(hero.ClassesAndLevels[characterClassDefinition]);
+                    builder.Append(separator);
                 }
             }
+            else
+            {
+                return null;
+            }
 
-            return builder.Remove(builder.Length - separator.Length, separator.Length).ToString();
+            return builder.ToString().Remove(builder.Length - separator.Length, separator.Length);
         }
 
         internal static string GetAllClassesHitDiceLabel(GuiCharacter character, out int dieTypeCount)
@@ -106,8 +86,10 @@ namespace SolastaUnfinishedBusiness.Models
                     {
                         dieTypesCount.Add(characterClassDefinition.HitDice, 0);
                     }
+
                     dieTypesCount[characterClassDefinition.HitDice] += hero.ClassesAndLevels[characterClassDefinition];
                 }
+
                 foreach (var dieType in dieTypesCount.Keys)
                 {
                     builder.Append(dieTypesCount[dieType].ToString());

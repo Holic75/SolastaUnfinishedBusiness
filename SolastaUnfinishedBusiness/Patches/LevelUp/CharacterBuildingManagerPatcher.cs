@@ -21,16 +21,6 @@ namespace SolastaUnfinishedBusiness.Patches
             }
         }
 
-        // ensures this doesn't get executed in the class panel level up screen
-        [HarmonyPatch(typeof(CharacterBuildingManager), "AssignEquipment")]
-        internal static class CharacterBuildingManagerAssignEquipment
-        {
-            internal static bool Prefix()
-            {
-                return !(Models.LevelUpContext.LevelingUp && Models.LevelUpContext.DisplayingClassPanel);
-            }
-        }
-
         // captures the desired sub class
         [HarmonyPatch(typeof(CharacterBuildingManager), "AssignSubclass")]
         internal static class CharacterBuildingManagerAssignSubclass
@@ -42,8 +32,8 @@ namespace SolastaUnfinishedBusiness.Patches
         }
 
         // ensures this doesn't get executed in the class panel level up screen
-        [HarmonyPatch(typeof(CharacterBuildingManager), "BuildWieldedConfigurations")]
-        internal static class CharacterBuildingManagerBuildWieldedConfigurations
+        [HarmonyPatch(typeof(CharacterBuildingManager), "ClearWieldedConfigurations")]
+        internal static class CharacterBuildingManagerClearWieldedConfigurations
         {
             internal static bool Prefix()
             {
@@ -52,8 +42,48 @@ namespace SolastaUnfinishedBusiness.Patches
         }
 
         // ensures this doesn't get executed in the class panel level up screen
-        [HarmonyPatch(typeof(CharacterBuildingManager), "ClearWieldedConfigurations")]
-        internal static class CharacterBuildingManagerClearWieldedConfigurations
+        [HarmonyPatch(typeof(CharacterBuildingManager), "GrantBaseEquipment")]
+        internal static class CharacterBuildingManagerGrantBaseEquipment
+        {
+            internal static bool Prefix()
+            {
+                return !(Models.LevelUpContext.LevelingUp && Models.LevelUpContext.DisplayingClassPanel);
+            }
+        }
+
+        // ensures this doesn't get executed in the class panel level up screen
+        [HarmonyPatch(typeof(CharacterBuildingManager), "GrantFeatures")]
+        internal static class CharacterBuildingManagerGrantFeatures
+        {
+            internal static bool Prefix()
+            {
+                return !(Models.LevelUpContext.LevelingUp && Models.LevelUpContext.DisplayingClassPanel);
+            }
+        }
+
+        // ensures this doesn't get executed in the class panel level up screen
+        [HarmonyPatch(typeof(CharacterBuildingManager), "RemoveBaseEquipment")]
+        internal static class CharacterBuildingManagerRemoveBaseEquipment
+        {
+            internal static bool Prefix()
+            {
+                return !(Models.LevelUpContext.LevelingUp && Models.LevelUpContext.DisplayingClassPanel);
+            }
+        }
+
+        // ensures this doesn't get executed in the class panel level up screen
+        [HarmonyPatch(typeof(CharacterBuildingManager), "TransferOrSpawnWieldedItem")]
+        internal static class CharacterBuildingManagerTransferOrSpawnWieldedItem
+        {
+            internal static bool Prefix()
+            {
+                return !(Models.LevelUpContext.LevelingUp && Models.LevelUpContext.DisplayingClassPanel);
+            }
+        }
+
+        // ensures this doesn't get executed in the class panel level up screen
+        [HarmonyPatch(typeof(CharacterBuildingManager), "UnassignLastClassLevel")]
+        internal static class CharacterBuildingManagerUnassignLastClassLevel
         {
             internal static bool Prefix()
             {
@@ -260,66 +290,6 @@ namespace SolastaUnfinishedBusiness.Patches
                 }
 
                 return !(Models.LevelUpContext.LevelingUp && Models.LevelUpContext.IsMulticlass);
-            }
-        }
-
-        // ensures this doesn't get executed in the class panel level up screen
-        [HarmonyPatch(typeof(CharacterBuildingManager), "GrantBaseEquipment")]
-        internal static class CharacterBuildingManagerGrantBaseEquipment
-        {
-            internal static bool Prefix()
-            {
-                return !(Models.LevelUpContext.LevelingUp && Models.LevelUpContext.DisplayingClassPanel);
-            }
-        }
-
-        // ensures this doesn't get executed in the class panel level up screen
-        [HarmonyPatch(typeof(CharacterBuildingManager), "GrantFeatures")]
-        internal static class CharacterBuildingManagerGrantFeatures
-        {
-            internal static bool Prefix()
-            {
-                return !(Models.LevelUpContext.LevelingUp && Models.LevelUpContext.DisplayingClassPanel);
-            }
-        }
-
-        // ensures this doesn't get executed in the class panel level up screen
-        [HarmonyPatch(typeof(CharacterBuildingManager), "RemoveBaseEquipment")]
-        internal static class CharacterBuildingManagerRemoveBaseEquipment
-        {
-            internal static bool Prefix()
-            {
-                return !(Models.LevelUpContext.LevelingUp && Models.LevelUpContext.DisplayingClassPanel);
-            }
-        }
-
-       // ensures this doesn't get executed in the class panel level up screen
-       [HarmonyPatch(typeof(CharacterBuildingManager), "TransferOrSpawnWieldedItem")]
-        internal static class CharacterBuildingManagerTransferOrSpawnWieldedItem
-        {
-            internal static bool Prefix()
-            {
-                return !(Models.LevelUpContext.LevelingUp && Models.LevelUpContext.DisplayingClassPanel);
-            }
-        }
-
-        // ensures this doesn't get executed in the class panel level up screen
-        [HarmonyPatch(typeof(CharacterBuildingManager), "UnassignEquipment")]
-        internal static class CharacterBuildingManagerUnassignEquipment
-        {
-            internal static bool Prefix()
-            {
-                return !(Models.LevelUpContext.LevelingUp && Models.LevelUpContext.DisplayingClassPanel);
-            }
-        }
-
-        // ensures this doesn't get executed in the class panel level up screen
-        [HarmonyPatch(typeof(CharacterBuildingManager), "UnassignLastClassLevel")]
-        internal static class CharacterBuildingManagerUnassignLastClassLevel
-        {
-            internal static bool Prefix()
-            {
-                return !(Models.LevelUpContext.LevelingUp && Models.LevelUpContext.DisplayingClassPanel);
             }
         }
 

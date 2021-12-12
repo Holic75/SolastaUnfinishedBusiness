@@ -57,11 +57,11 @@ namespace SolastaUnfinishedBusiness.Patches
                         {
                             if (DisplayClassesLabel)
                             {
-                                __instance.characterPlate.classLabel.Text = Models.GameUi.GetAllSubclassesLabel(__instance.InspectedCharacter, __instance.characterPlate.classLabel.Text);
+                                __instance.characterPlate.classLabel.Text = Models.GameUi.GetAllSubclassesLabel(__instance.InspectedCharacter);
                             }
                             else
                             {
-                                __instance.characterPlate.classLabel.Text = Models.GameUi.GetAllClassesLabel(__instance.InspectedCharacter, __instance.characterPlate.classLabel.Text);
+                                __instance.characterPlate.classLabel.Text = Models.GameUi.GetAllClassesLabel(__instance.InspectedCharacter);
                             }
 
                             DisplayClassesLabel = !DisplayClassesLabel;

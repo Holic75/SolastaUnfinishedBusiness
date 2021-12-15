@@ -66,8 +66,8 @@ namespace SolastaUnfinishedBusiness.Builders
                 MessageModal.Severity.Attention2,
                 confirmationTitle, confirmationDescription,
                 "Message/&MessageYesTitle", "Message/&MessageNoTitle",
-                new MessageModal.MessageValidatedHandler(() => { state = 0; }),
-                new MessageModal.MessageCancelledHandler(() => { state = 1; }));
+                new MessageModal.MessageValidatedHandler(() => { state = 1; }),
+                new MessageModal.MessageCancelledHandler(() => { state = 0; }));
 
             while (state < 0)
             {

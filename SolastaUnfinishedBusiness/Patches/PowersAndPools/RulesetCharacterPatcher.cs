@@ -9,7 +9,7 @@ namespace SolastaUnfinishedBusiness.Patches
         [HarmonyPatch(typeof(RulesetCharacter), "UsePower")]
         internal static class RulesetCharacterUsePower
         {
-            internal static void Prefix(RulesetCharacter __instance, RulesetUsablePower usablePower)
+            internal static void Postfix(RulesetCharacter __instance, RulesetUsablePower usablePower)
             {
                 if (__instance is RulesetCharacterMonster monster && monster.IsSubstitute && usablePower.PowerDefinition == PowerBarbarianRageStart)
                 {

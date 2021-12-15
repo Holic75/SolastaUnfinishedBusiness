@@ -26,7 +26,7 @@ namespace SolastaUnfinishedBusiness.Viewers
             UI.Label("");
 
             toggle = Main.Settings.EnableClassWarlock;
-            if (UI.Toggle("Enables the alpha " + "Warlock".orange() + " class " + "[requires restart]".bold().italic().red(), ref toggle, UI.AutoWidth()))
+            if (UI.Toggle("Enable the alpha " + "Warlock".orange() + " class " + "[requires restart]".bold().italic().red(), ref toggle, UI.AutoWidth()))
             {
                 Main.Settings.EnableClassWarlock = toggle;
             }
@@ -34,7 +34,7 @@ namespace SolastaUnfinishedBusiness.Viewers
             UI.Label("");
 
             toggle = Main.Settings.EnableMinInOutAttributes;
-            if (UI.Toggle("Enforces ability scores minimum in & out pre-requisites", ref toggle, UI.AutoWidth()))
+            if (UI.Toggle("Enforce ability scores minimum in & out pre-requisites", ref toggle, UI.AutoWidth()))
             {
                 Main.Settings.EnableMinInOutAttributes = toggle;
             }
@@ -48,25 +48,25 @@ namespace SolastaUnfinishedBusiness.Viewers
             UI.Label("");
 
             toggle = Main.Settings.EnableGrantHolySymbol;
-            if (UI.Toggle("Grants holy symbol to divine casters", ref toggle, UI.AutoWidth()))
+            if (UI.Toggle("Grant holy symbol to divine casters", ref toggle, UI.AutoWidth()))
             {
                 Main.Settings.EnableGrantHolySymbol = toggle;
             }
 
             toggle = Main.Settings.EnableGrantComponentPouch;
-            if (UI.Toggle("Grants component pouch to arcane casters", ref toggle, UI.AutoWidth()))
+            if (UI.Toggle("Grant component pouch to arcane casters", ref toggle, UI.AutoWidth()))
             {
                 Main.Settings.EnableGrantComponentPouch = toggle;
             }
 
             toggle = Main.Settings.EnableGrantDruidicFocus;
-            if (UI.Toggle("Grants druidic focus to " + "Druid".orange(), ref toggle, UI.AutoWidth()))
+            if (UI.Toggle("Grant druidic focus to " + "Druid".orange(), ref toggle, UI.AutoWidth()))
             {
                 Main.Settings.EnableGrantDruidicFocus = toggle;
             }
 
             toggle = Main.Settings.EnableGrantCLothesWizard;
-            if (UI.Toggle("Grants clothes to " + "Wizard".orange(), ref toggle, UI.AutoWidth()))
+            if (UI.Toggle("Grant clothes to " + "Wizard".orange(), ref toggle, UI.AutoWidth()))
             {
                 Main.Settings.EnableGrantCLothesWizard = toggle;
             }
@@ -92,7 +92,7 @@ namespace SolastaUnfinishedBusiness.Viewers
             }
 
             toggle = Main.Settings.EnableDisplayAllKnownSpellsOnLevelUp;
-            if (UI.Toggle("Displays known spells from other classes during level up", ref toggle, UI.AutoWidth()))
+            if (UI.Toggle("Display known spells from other classes during level up", ref toggle, UI.AutoWidth()))
             {
                 Main.Settings.EnableDisplayAllKnownSpellsOnLevelUp = toggle;
             }
@@ -106,7 +106,7 @@ namespace SolastaUnfinishedBusiness.Viewers
             }
 
             toggle = Main.Settings.EnableFixTwinnedLogic;
-            if (UI.Toggle("Fixes Sorcerer twinned metamagic " + "[a spell must be incapable of targeting more than one creature at the spell’s current level]".italic().yellow(), ref toggle, UI.AutoWidth()))
+            if (UI.Toggle("Fix Sorcerer twinned metamagic " + "[a spell must be incapable of targeting more than one creature at the spell’s current level]".italic().yellow(), ref toggle, UI.AutoWidth()))
             {
                 Main.Settings.EnableFixTwinnedLogic = toggle;
             }
@@ -116,7 +116,7 @@ namespace SolastaUnfinishedBusiness.Viewers
                 UI.Label("");
 
                 toggle = Main.Settings.EnableSharedSpellCasting;
-                if (UI.Toggle("Enables the shared slots system", ref toggle, UI.AutoWidth()))
+                if (UI.Toggle("Enable the shared slots system", ref toggle, UI.AutoWidth()))
                 {
                     Main.Settings.EnableSharedSpellCasting = toggle;
                     if (!toggle)
@@ -128,13 +128,13 @@ namespace SolastaUnfinishedBusiness.Viewers
                 if (Main.Settings.EnableSharedSpellCasting && Main.Settings.EnableClassWarlock)
                 {
                     toggle = Main.Settings.EnableCombinedSpellCasting;
-                    if (UI.Toggle("Combines " + "Warlock".orange() + " pact magic and the shared slots system", ref toggle, UI.AutoWidth()))
+                    if (UI.Toggle("Combine " + "Warlock".orange() + " pact magic and the shared slots system", ref toggle, UI.AutoWidth()))
                     {
                         Main.Settings.EnableCombinedSpellCasting = toggle;
                     }
 
                     toggle = Main.Settings.EnableConsumeLongRestSlotFirst;
-                    if (UI.Toggle("Uses long rest slots whenever the " + "Warlock".orange() + " spell level is greater than the shared spell level", ref toggle, UI.AutoWidth()))
+                    if (UI.Toggle("Use long rest slots whenever the " + "Warlock".orange() + " spell level is greater than the shared spell level", ref toggle, UI.AutoWidth()))
                     {
                         Main.Settings.EnableConsumeLongRestSlotFirst = toggle;
                     }

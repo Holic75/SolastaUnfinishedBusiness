@@ -159,12 +159,12 @@ namespace SolastaUnfinishedBusiness.ClassWarlock
             classWarlockBuilder.AddFeatureAtLevel(FeatureDefinitionProficiencyTool, 1);
             classWarlockBuilder.AddFeatureAtLevel(FeatureDefinitionSkillPoints, 1);
             classWarlockBuilder.AddFeatureAtLevel(FeatureDefinitionClassWarlockCastSpell, 1);
-            classWarlockBuilder.AddFeatureAtLevel(WarlockEldritchInvocationSetBuilderLevel2.WarlockEldritchInvocationSetLevel2, 2);
+            //classWarlockBuilder.AddFeatureAtLevel(WarlockEldritchInvocationSetBuilderLevel2.WarlockEldritchInvocationSetLevel2, 2);
             classWarlockBuilder.AddFeatureAtLevel(DatabaseHelper.FeatureDefinitionFeatureSets.FeatureSetAbilityScoreChoice, 4);
-            classWarlockBuilder.AddFeatureAtLevel(WarlockEldritchInvocationSetBuilderLevel5.WarlockEldritchInvocationSetLevel5, 5);
-            classWarlockBuilder.AddFeatureAtLevel(WarlockEldritchInvocationSetBuilderLevel7.WarlockEldritchInvocationSetLevel7, 7);
+            //classWarlockBuilder.AddFeatureAtLevel(WarlockEldritchInvocationSetBuilderLevel5.WarlockEldritchInvocationSetLevel5, 5);
+            //classWarlockBuilder.AddFeatureAtLevel(WarlockEldritchInvocationSetBuilderLevel7.WarlockEldritchInvocationSetLevel7, 7);
             classWarlockBuilder.AddFeatureAtLevel(DatabaseHelper.FeatureDefinitionFeatureSets.FeatureSetAbilityScoreChoice, 8);
-            classWarlockBuilder.AddFeatureAtLevel(WarlockEldritchInvocationSetBuilderLevel9.WarlockEldritchInvocationSetLevel9, 9);
+            //classWarlockBuilder.AddFeatureAtLevel(WarlockEldritchInvocationSetBuilderLevel9.WarlockEldritchInvocationSetLevel9, 9);
             classWarlockBuilder.AddFeatureAtLevel(DatabaseHelper.FeatureDefinitionFeatureSets.FeatureSetAbilityScoreChoice, 12);
             classWarlockBuilder.AddFeatureAtLevel(DatabaseHelper.FeatureDefinitionFeatureSets.FeatureSetAbilityScoreChoice, 16);
             classWarlockBuilder.AddFeatureAtLevel(DatabaseHelper.FeatureDefinitionFeatureSets.FeatureSetAbilityScoreChoice, 19);

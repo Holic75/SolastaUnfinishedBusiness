@@ -106,7 +106,7 @@ namespace SolastaUnfinishedBusiness.Viewers
             }
 
             toggle = Main.Settings.EnableFixTwinnedLogic;
-            if (UI.Toggle("Fix Sorcerer twinned metamagic " + "[a spell must be incapable of targeting more than one creature at the spell’s current level]".italic().yellow(), ref toggle, UI.AutoWidth()))
+            if (UI.Toggle("Fix " + "Sorcerer".orange() + " twinned metamagic " + "[a spell must be incapable of targeting more than one creature at the spell’s current level]".italic().yellow(), ref toggle, UI.AutoWidth()))
             {
                 Main.Settings.EnableFixTwinnedLogic = toggle;
             }

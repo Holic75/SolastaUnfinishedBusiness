@@ -6,6 +6,27 @@ namespace SolastaUnfinishedBusiness.Utils
 {
     internal static class ModHelpers
     {
+        internal static bool isItemGrantedOnLvl1(CharacterClassDefinition characterClass, ItemDefinition item)
+        {
+            if (characterClass == null)
+            {
+                return false;
+            }
+
+            return characterClass.equipmentRows.Any(er => er.equipmentColumns.Any(ec => ec.equipmentOptions.Any(eo => eo.itemReference == item)));
+        }
+
+
+        internal static bool shouldGrantItemOnMCLevelUp(RulesetCharacterHero hero, CharacterClassDefinition characterClass, ItemDefinition item)
+        {
+            if (hero == null)
+            {
+                return false;
+            }
+
+            return isItemGrantedOnLvl1(characterClass, item) && !hero.ClassesAndLevels.Keys.Any(k => isItemGrantedOnLvl1(k, item));
+        }
+
         internal static Assembly GetModAssembly(string modName)
         {
             return AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(x => x.FullName.Contains(modName));

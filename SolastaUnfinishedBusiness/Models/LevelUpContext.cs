@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using static SolastaModApi.DatabaseHelper.CharacterClassDefinitions;
+using SolastaUnfinishedBusiness.Utils;
 
 namespace SolastaUnfinishedBusiness.Models
 {
@@ -141,46 +142,12 @@ namespace SolastaUnfinishedBusiness.Models
 
                 if (selectedClass != null)
                 {
-                    selectedHero.ClassesAndSubclasses.TryGetValue(selectedClass, out selectedSubclass);
-
-                    DatabaseRepository.GetDatabase<CharacterClassDefinition>().TryGetElement("ClassTinkerer", out var ChrisTinkerer);
-
-                    var classesAndLevels = selectedHero.ClassesAndLevels;
-                    var hasChrisTinkerer = ChrisTinkerer != null && selectedHero.ClassesAndLevels.ContainsKey(ChrisTinkerer);
-
-                    requiresDeity =
-                        (selectedClass == Cleric && !classesAndLevels.ContainsKey(Cleric)) || (selectedClass == Paladin && selectedHero.DeityDefinition == null);
-
-                    requiresHolySymbol =
-                        !(classesAndLevels.ContainsKey(Cleric) || classesAndLevels.ContainsKey(Paladin)) && (selectedClass == Cleric || selectedClass == Paladin);
-
-                    requiresClothesWizard =
-                        !classesAndLevels.ContainsKey(Wizard) && selectedClass == Wizard;
-
-                    requiresComponentPouch =
-                        (
-                            selectedClass == Ranger ||
-                            selectedClass == Sorcerer ||
-                            selectedClass == Wizard ||
-                            selectedClass == ChrisTinkerer
-                        ) &&
-                        !(
-                            classesAndLevels.ContainsKey(Ranger) ||
-                            classesAndLevels.ContainsKey(Sorcerer) ||
-                            classesAndLevels.ContainsKey(Wizard) ||
-                            hasChrisTinkerer
-                        );
-
-                    requiresDruidicFocus =
-                        (
-                            selectedClass == Druid
-                        ) &&
-                        !(
-                            classesAndLevels.ContainsKey(Druid)
-                        );
-
-                    requiresSpellbook =
-                        !classesAndLevels.ContainsKey(Wizard) && selectedClass == Wizard;
+                    requiresDeity = selectedClass.requiresDeity && !selectedHero.ClassesAndLevels.Keys.Any(k => k.requiresDeity);
+                    requiresHolySymbol = ModHelpers.shouldGrantItemOnMCLevelUp(selectedHero, selectedClass, SolastaModApi.DatabaseHelper.ItemDefinitions.HolySymbolAmulet);
+                    requiresClothesWizard = ModHelpers.shouldGrantItemOnMCLevelUp(selectedHero, selectedClass, SolastaModApi.DatabaseHelper.ItemDefinitions.ClothesWizard);
+                    requiresComponentPouch = ModHelpers.shouldGrantItemOnMCLevelUp(selectedHero, selectedClass, SolastaModApi.DatabaseHelper.ItemDefinitions.ComponentPouch);
+                    requiresDruidicFocus = ModHelpers.shouldGrantItemOnMCLevelUp(selectedHero, selectedClass, SolastaModApi.DatabaseHelper.ItemDefinitions.DruidicFocus);
+                    requiresSpellbook = ModHelpers.shouldGrantItemOnMCLevelUp(selectedHero, selectedClass, SolastaModApi.DatabaseHelper.ItemDefinitions.Spellbook);
                 }
             }
         }
@@ -274,7 +241,6 @@ namespace SolastaUnfinishedBusiness.Models
                     // check if extra attacks should be excluded
                     if (Main.Settings.EnableNonStackingExtraAttacks)
                     {
-
                         foundExtraAttackToExclude = extraAttackNameToExclude == featureDefinitionName && AttacksNumberAttribute?.ActiveModifiers.Count > 0
                             && !(selectedClass.Name == "Fighter" && (SelectedClassLevel == 11 || SelectedClassLevel == 20));
                     }

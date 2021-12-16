@@ -1,0 +1,47 @@
+{
+    "WarlockClass":
+    {
+        "Prerequisites":
+        [
+            {
+                "Charisma": 13
+            }
+        ],
+        "FeaturesToRemove": ["WarlockArmorProficiency", "WarlockSavingthrowProficiency", "WarlockSkillProficiency"],
+        "FeaturesToAdd": []
+    },
+    "MonkClass":
+    {
+        "Prerequisites":
+        [
+            {
+                "Dexterity": 13,
+                "Wisdom": 13
+            }
+        ],
+        "FeaturesToRemove": ["MonkSavingthrowProficiency", "MonkSkillProficiency"],
+        "FeaturesToAdd": []
+    },
+    "BardClass":
+    {
+        "Prerequisites":
+        [
+            {
+                "Charisma": 13
+            }
+        ],
+        "FeaturesToRemove": ["BardWeaponProficiency", "BardSavingthrowProficiency", "BardSkillProficiency"],
+        "FeaturesToAdd": ["BardSkillProficiencyMulticlass"]
+    },
+    "AlchemistClass":
+    {
+        "Prerequisites":
+        [
+            {
+                "Intelligence": 13
+            }
+        ],
+        "FeaturesToRemove": ["AlchemistWeaponProficiency", "AlchemistSkillProficiency", "AlchemistSavingthrowProficiency"],
+        "FeaturesToAdd": []
+    }
+}

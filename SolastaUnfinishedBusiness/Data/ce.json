@@ -1,0 +1,24 @@
+{
+    "ClassWarlock":
+    {
+        "Prerequisites":
+        [
+            {
+                "Charisma": 13
+            }
+        ],
+        "FeaturesToRemove": ["ClassWarlockWeaponProficiency", "ClassWarlockSkillProficiency", "ClassWarlockSavingThrowProficiency"],
+        "FeaturesToAdd": []
+    },
+    "ClassTinkerer":
+    {
+        "Prerequisites":
+        [
+            {
+                "Intelligence": 13
+            }
+        ],
+        "FeaturesToRemove": ["ProficiencyWeaponTinkerer", "PointPoolTinkererSkillPoints", "ProficiencyTinkererSavingThrow"],
+        "FeaturesToAdd": []
+    }
+}

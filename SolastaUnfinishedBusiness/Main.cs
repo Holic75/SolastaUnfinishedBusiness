@@ -50,6 +50,7 @@ namespace SolastaUnfinishedBusiness
                 menu.Enable(modEntry, assembly);
                 Logger = modEntry.Logger;
                 Settings = mod.Settings;
+                Models.LevelUpContext.initialize(Path.Combine(MOD_FOLDER, "Data"));
                 Translations.Load(MOD_FOLDER);
             }
             catch (Exception ex)

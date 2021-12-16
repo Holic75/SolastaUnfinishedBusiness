@@ -2,118 +2,45 @@
 using System.Linq;
 using static SolastaModApi.DatabaseHelper.CharacterClassDefinitions;
 using SolastaUnfinishedBusiness.Utils;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.IO;
 
 namespace SolastaUnfinishedBusiness.Models
 {
     internal static class LevelUpContext
     {
-        internal static readonly Dictionary<string, List<Dictionary<string, int>>> inOutPrerequisites = new Dictionary<string, List<Dictionary<string, int>>>
+
+
+        static internal void initialize(string workingFolder)
         {
-            {"Barbarian", new List<Dictionary<string, int>> {
-                new Dictionary<string, int>{ { "Strength", 13 } } } },
-            {"Cleric", new List<Dictionary<string, int>> {
-                new Dictionary<string, int>{ { "Wisdom", 13 } } } },
-            {"Druid", new List<Dictionary<string, int>> {
-                new Dictionary<string, int>{ { "Wisdom", 13 } } } },
-            {"Fighter", new List<Dictionary<string, int>> {
-                new Dictionary<string, int>{ { "Strength", 13 } },
-                new Dictionary<string, int>{ { "Dexterity", 13 } }} },
-            {"Paladin", new List<Dictionary<string, int>> {
-                new Dictionary<string, int>{ { "Strength", 13 } } } },
-            {"Ranger", new List<Dictionary<string, int>> {
-                new Dictionary<string, int>{ { "Dexterity", 13 }, { "Wisdom", 13 } } } },
-            {"Rogue", new List<Dictionary<string, int>> {
-                new Dictionary<string, int>{ { "Dexterity", 13 } } } },
-            {"Sorcerer", new List<Dictionary<string, int>> {
-                new Dictionary<string, int>{ { "Charisma", 13 } } } },
-            {"Wizard", new List<Dictionary<string, int>> {
-                new Dictionary<string, int>{ { "Intelligence", 13 } } } },
-            {"ClassTinkerer", new List<Dictionary<string, int>> {
-                new Dictionary<string, int>{ { "Intelligence", 13 } } } },
-            {"ClassWarlock", new List<Dictionary<string, int>> {
-                new Dictionary<string, int>{ { "Charisma", 13 } } } }
+            foreach (var path in Directory.EnumerateFiles(workingFolder))
+            {
+                string content = File.ReadAllText(path);
+                using (StreamReader file = File.OpenText(path))
+                using (JsonTextReader reader = new JsonTextReader(file))
+                {
+                    JObject jo = (JObject)JToken.ReadFrom(reader);
+                    foreach (var kv in jo)
+                    {
+                        inOutPrerequisites[kv.Key] = new List<Dictionary<string, int>>();
+                        featuresToAdd[kv.Key] = kv.Value["FeaturesToAdd"].Select(x => (string)x).ToList();
+                        featuresToExclude[kv.Key] = kv.Value["FeaturesToRemove"].Select(x => (string)x).ToList();
 
-        };
+                        var prerequisites = kv.Value["Prerequisites"].ToList();
+                        foreach (var p in prerequisites)
+                        {
+                            inOutPrerequisites[kv.Key].Add(p.ToDictionary(j => ((JProperty)j).Name, j => (int)((JProperty)j).Value));
+                        }
+                    }
+                }
+            }
+        }
 
-        private static readonly Dictionary<string, List<string>> featuresToAdd = new Dictionary<string, List<string>>
-        {
-            { "Barbarian", new List<string> {
-                "BarbarianArmorProficiencyMulticlass" } },
 
-            { "Fighter", new List<string> {
-                "FighterArmorProficiencyMulticlass" } },
-
-            { "Paladin", new List<string> {
-                "PaladinArmorProficiencyMulticlass"} },
-
-            { "Ranger", new List<string> {
-                "PointPoolRangerSkillPointsMulticlass"} },
-
-            { "Rogue", new List<string> {
-                "PointPoolRogueSkillPointsMulticlass"} },
-        };
-
-        private static readonly Dictionary<string, List<string>> featuresToExclude = new Dictionary<string, List<string>>
-        {
-            { "Barbarian", new List<string> {
-                "ProficiencyBarbarianArmor",
-                "PointPoolBarbarianrSkillPoints",
-                "ProficiencyBarbarianSavingThrow" } },
-
-            { "Cleric", new List<string> {
-                "ProficiencyClericWeapon",
-                "PointPoolClericSkillPoints",
-                "ProficiencyClericSavingThrow" } },
-
-            { "Druid", new List<string> {
-                "PointPoolDruidSkillPoints",
-                "ProficiencyDruidSavingThrow" } },
-
-            { "Fighter", new List<string> {
-                "ProficiencyFighterArmor",
-                "PointPoolFighterSkillPoints",
-                "ProficiencyFighterSavingThrow" } },
-
-            { "Paladin", new List<string> {
-                "ProficiencyPaladinArmor",
-                "PointPoolPaladinSkillPoints",
-                "ProficiencyPaladinSavingThrow" } },
-
-            { "Ranger", new List<string> {
-                "PointPoolRangerSkillPoints",
-                "ProficiencyRangerSavingThrow" } },
-
-            { "Rogue", new List<string> {
-                "PointPoolRogueSkillPoints",
-                "ProficiencyRogueWeapon",
-                "ProficiencyRogueSavingThrow" } },
-
-            { "Sorcerer", new List<string> {
-                "ProficiencySorcererWeapon",
-                "ProficiencySorcererArmor",
-                "PointPoolSorcererSkillPoints",
-                "ProficiencySorcererSavingThrow"} },
-
-            { "Wizard", new List<string> {
-                "ProficiencyWizardWeapon",
-                "ProficiencyWizardArmor",
-                "PointPoolWizardSkillPoints",
-                "ProficiencyWizardSavingThrow"} },
-
-            // CJD's classes
-
-            { "ClassTinkerer", new List<string> {
-                "ProficiencyWeaponTinkerer",
-                "PointPoolTinkererSkillPoints",
-                "ProficiencyTinkererSavingThrow"} },
-
-            // Zappastuff's classes
-
-            { "ClassWarlock", new List<string> {
-                "ClassWarlockWeaponProficiency",
-                "ClassWarlockSkillProficiency",
-                "ClassWarlockSavingThrowProficiency" } },
-        };
+        internal static readonly Dictionary<string, List<Dictionary<string, int>>> inOutPrerequisites = new Dictionary<string, List<Dictionary<string, int>>>();
+        private static readonly Dictionary<string, List<string>> featuresToAdd = new Dictionary<string, List<string>>();
+        private static readonly Dictionary<string, List<string>> featuresToExclude = new Dictionary<string, List<string>>();
 
         private static bool levelingUp = false;
         private static bool requiresDeity = false;
@@ -217,9 +144,8 @@ namespace SolastaUnfinishedBusiness.Models
 
         internal static bool IsMulticlass => selectedHero?.ClassesAndLevels?.Count > 1 || selectedHero?.ClassesAndLevels.Count > 0 && selectedHero?.ClassesAndLevels.ContainsKey(selectedClass) != true;
 
-        internal static List<FeatureUnlockByLevel> SelectedClassFilteredFeaturesUnlocks(List<FeatureUnlockByLevel> featureUnlockByLevels)
+        internal static List<FeatureUnlockByLevel> SelectedClassFilteredFeaturesUnlocks(List<FeatureUnlockByLevel> featureUnlockByLevels, CharacterSubclassDefinition subclass = null)
         {
-
            var filteredFeatureUnlockByLevels = new List<FeatureUnlockByLevel>();
 
             if (LevelingUp)
@@ -227,7 +153,7 @@ namespace SolastaUnfinishedBusiness.Models
                 var firstClassName = selectedHero.ClassesHistory[0].Name;
                 var selectedClassName = selectedClass.Name;
 
-                if (SelectedClassLevel == 0 && firstClassName != selectedClassName)
+                if (SelectedClassLevel == 0 && firstClassName != selectedClassName && subclass == null)
                 {
                     featuresToAdd.TryGetValue(selectedClassName, out var featuresNamesToAdd);
                     if (featuresToAdd != null)
@@ -259,16 +185,18 @@ namespace SolastaUnfinishedBusiness.Models
                     // check if extra attacks should be excluded
                     if (Main.Settings.EnableNonStackingExtraAttacks 
                         && ModHelpers.isFeatureIncreasesAttacksCount(featureUnlock.FeatureDefinition)
-                        && selectedHero.ActiveFeatures.Values.Any(v => v.Any(f => ModHelpers.isFeatureIncreasesAttacksCount(featureUnlock.FeatureDefinition))))
+                        && selectedHero.ActiveFeatures.Values.Any(v => v.Any(f => ModHelpers.isFeatureIncreasesAttacksCount(f))))
                     {
                         //check if this is an upgrade feature
-                        //i. e. there is at least one other attack count incresing feature at lower level, that could be acquired from this class
-                        var all_attack_features = selectedClass.featureUnlocks.Where(f => ModHelpers.isFeatureIncreasesAttacksCount(featureUnlock.FeatureDefinition)).ToList();
+                        //i. e. there is at least one other attack count increasing feature at lower level, that could be acquired from this class
+                        var all_attack_features = selectedClass.featureUnlocks.Where(f => ModHelpers.isFeatureIncreasesAttacksCount(f.featureDefinition)).ToList();
                         if (selectedSubclass != null)
                         {
-                            all_attack_features.AddRange(selectedSubclass.featureUnlocks.Where(f => ModHelpers.isFeatureIncreasesAttacksCount(featureUnlock.FeatureDefinition)).ToList());
+                            all_attack_features.AddRange(selectedSubclass.featureUnlocks.Where(f => ModHelpers.isFeatureIncreasesAttacksCount(f.FeatureDefinition)).ToList());
                         }
-                        bool isAttackCountUpgrade = all_attack_features.Count > 1 && all_attack_features.Min(f => f.level) < (SelectedClassLevel + 1);
+
+                        bool isAttackCountUpgrade = all_attack_features.Count > 1 
+                                                    && all_attack_features.Min(f => f.level) < featureUnlock.level;
 
                         foundExtraAttackToExclude = !isAttackCountUpgrade;
                     }

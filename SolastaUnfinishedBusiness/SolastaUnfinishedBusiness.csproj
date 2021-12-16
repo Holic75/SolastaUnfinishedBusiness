@@ -429,4 +429,8 @@
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+	  <Exec Command="xcopy &quot;$(ProjectDir)/Data&quot; &quot;$(TargetDir)/Data&quot; /e /y /i /r" />
+	</Target>
 </Project>

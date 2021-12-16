@@ -1,0 +1,106 @@
+{
+    "Barbarian":
+    {
+        "Prerequisites":
+        [
+            {
+                "Strength": 13
+            }
+        ],
+        "FeaturesToRemove": ["ProficiencyBarbarianArmor", "PointPoolBarbarianrSkillPoints", "ProficiencyBarbarianSavingThrow"],
+        "FeaturesToAdd": ["BarbarianArmorProficiencyMulticlass"]
+    },
+    "Sorcerer":
+    {
+        "Prerequisites":
+        [
+            {
+                "Charisma": 13
+            }
+        ],
+        "FeaturesToRemove": ["ProficiencySorcererWeapon", "ProficiencySorcererArmor", "PointPoolSorcererSkillPoints", "ProficiencySorcererSavingThrow"],
+        "FeaturesToAdd": []
+    },
+    "Cleric":
+    {
+        "Prerequisites":
+        [
+            {
+                "Wisdom": 13
+            }
+        ],
+        "FeaturesToRemove": ["ProficiencyClericWeapon", "PointPoolClericSkillPoints", "ProficiencyClericSavingThrow"],
+        "FeaturesToAdd": []
+    },
+    "Druid":
+    {
+        "Prerequisites":
+        [
+            {
+                "Wisdom": 13
+            }
+        ],
+        "FeaturesToRemove": ["PointPoolDruidSkillPoints", "ProficiencyDruidSavingThrow"],
+        "FeaturesToAdd": []
+    },
+    "Fighter":
+    {
+        "Prerequisites":
+        [
+            {
+                "Strength": 13
+            },
+            {
+                "Dexterity": 13
+            }
+        ],
+        "FeaturesToRemove": ["ProficiencyFighterArmor", "PointPoolFighterSkillPoints", "ProficiencyFighterSavingThrow"],
+        "FeaturesToAdd": ["FighterArmorProficiencyMulticlass"]
+    },
+    "Ranger":
+    {
+        "Prerequisites":
+        [
+            {
+                "Dexterity": 13,
+                "Wisdom": 13
+            }
+        ],
+        "FeaturesToRemove": ["PointPoolRangerSkillPoints", "ProficiencyRangerSavingThrow"],
+        "FeaturesToAdd": ["PointPoolRangerSkillPointsMulticlass"]
+    },
+    "Paladin":
+    {
+        "Prerequisites":
+        [
+            {
+                "Strength": 13,
+                "Charisma": 13
+            }
+        ],
+        "FeaturesToRemove": ["ProficiencyPaladinArmor", "PointPoolPaladinSkillPoints", "ProficiencyPaladinSavingThrow"],
+        "FeaturesToAdd": ["PaladinArmorProficiencyMulticlass"]
+    },
+    "Rogue":
+    {
+        "Prerequisites":
+        [
+            {
+                "Dexterity": 13
+            }
+        ],
+        "FeaturesToRemove": ["PointPoolRogueSkillPoints", "ProficiencyRogueWeapon", "ProficiencyRogueSavingThrow"],
+        "FeaturesToAdd": ["PointPoolRogueSkillPointsMulticlass"]
+    },
+    "Wizard":
+    {
+        "Prerequisites":
+        [
+            {
+                "Intelligence": 13
+            }
+        ],
+        "FeaturesToRemove": ["ProficiencyWizardWeapon", "ProficiencyWizardArmor", "PointPoolWizardSkillPoints", "ProficiencyWizardSavingThrow"],
+        "FeaturesToAdd": []
+    }
+}

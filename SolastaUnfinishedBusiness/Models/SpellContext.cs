@@ -14,21 +14,13 @@ namespace SolastaUnfinishedBusiness.Models
 
             if (isSubclass)
             {
-                if (!Main.Settings.SubclassCasterType.ContainsKey(name))
-                {
-                    return 0;
-                }
-
-                casterType = Main.Settings.SubclassCasterType[name];
+                var casterSubclass = DatabaseRepository.GetDatabase<CharacterSubclassDefinition>().GetElement(name, allowFail: true);
+                casterType = SharedSpellsContext.GetCasterTypeForClassOrSubclass(null, casterSubclass);
             }
             else
             {
-                if (!Main.Settings.ClassCasterType.ContainsKey(name))
-                {
-                    return 0;
-                }
-
-                casterType = Main.Settings.ClassCasterType[name];
+                var casterClass = DatabaseRepository.GetDatabase<CharacterClassDefinition>().GetElement(name, allowFail: true);
+                casterType = SharedSpellsContext.GetCasterTypeForClassOrSubclass(casterClass, null);
             }
 
             int modifier;

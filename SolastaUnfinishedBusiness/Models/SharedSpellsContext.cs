@@ -98,16 +98,35 @@ namespace SolastaUnfinishedBusiness.Models
             "One-Third"
         };
 
-        private static CasterType GetCasterTypeForClassOrSubclass(CharacterClassDefinition characterClassDefinition, CharacterSubclassDefinition characterSubclassDefinition)
+        internal static CasterType GetCasterTypeForClassOrSubclass(CharacterClassDefinition characterClassDefinition, CharacterSubclassDefinition characterSubclassDefinition)
         {
-            if (characterClassDefinition != null && Main.Settings.ClassCasterType.ContainsKey(characterClassDefinition.Name) && Main.Settings.ClassCasterType[characterClassDefinition.Name] != CasterType.None)
+            if (characterClassDefinition != null)
             {
-                return Main.Settings.ClassCasterType[characterClassDefinition.Name];
+                var classSpellcasting = characterClassDefinition.FeatureUnlocks.Where(f => f.featureDefinition is FeatureDefinitionCastSpell);
+                if (classSpellcasting.Any(f => (f.featureDefinition as FeatureDefinitionCastSpell).slotsPerLevels.Any(s => s.slots.Count > 5 && s.slots[5] > 0)))
+                {
+                    //those who are able to cast spells of lvl >5 are normally always full casters
+                    return CasterType.Full;
+                }
+                else if (classSpellcasting.Any(f => f.level == 1))
+                {
+                    //only artificer-like casters unlock their spellcasting ability at lvl 1 and are not full casters
+                    return CasterType.HalfRoundUp;
+                }
+                else if (classSpellcasting.Any())
+                {
+                    //everyone else receiving spellcasting from their class feature are likely half casters
+                    return CasterType.Half;
+                }
             }
 
-            if (characterSubclassDefinition != null && Main.Settings.SubclassCasterType.ContainsKey(characterSubclassDefinition.Name))
+            if (characterSubclassDefinition != null)
             {
-                return Main.Settings.SubclassCasterType[characterSubclassDefinition.Name];
+                if (characterSubclassDefinition.featureUnlocks.Any(s => s.featureDefinition is FeatureDefinitionCastSpell))
+                {
+                    //all subclasses that grant spell casting are normally 1/3 casters
+                    return CasterType.OneThird;
+                }
             }
 
             return CasterType.None;

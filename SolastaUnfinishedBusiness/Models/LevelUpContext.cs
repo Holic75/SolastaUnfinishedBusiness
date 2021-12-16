@@ -7,27 +7,28 @@ namespace SolastaUnfinishedBusiness.Models
 {
     internal static class LevelUpContext
     {
-        private static readonly Dictionary<string, Dictionary<string, string>> featuresToReplace = new Dictionary<string, Dictionary<string, string>>
+        private static readonly Dictionary<string, List<string>> featuresToAdd = new Dictionary<string, List<string>>
         {
-            { "Barbarian", new Dictionary<string, string> {
-                { "ProficiencyBarbarianArmor", "BarbarianArmorProficiencyMulticlass"} } },
+            { "Barbarian", new List<string> {
+                "BarbarianArmorProficiencyMulticlass" } },
 
-            { "Fighter", new Dictionary<string, string> {
-                { "ProficiencyFighterArmor", "FighterArmorProficiencyMulticlass"} } },
+            { "Fighter", new List<string> {
+                "FighterArmorProficiencyMulticlass" } },
 
-            { "Paladin", new Dictionary<string, string> {
-                 { "ProficiencyPaladinArmor", "PaladinArmorProficiencyMulticlass"} } },
+            { "Paladin", new List<string> {
+                "PaladinArmorProficiencyMulticlass"} },
 
-            { "Ranger", new Dictionary<string, string> {
-                { "PointPoolRangerSkillPoints", "PointPoolRangerSkillPointsMulticlass"} } },
+            { "Ranger", new List<string> {
+                "PointPoolRangerSkillPointsMulticlass"} },
 
-            { "Rogue", new Dictionary<string, string> {
-                { "PointPoolRogueSkillPoints", "PointPoolRogueSkillPointsMulticlass"} } },
+            { "Rogue", new List<string> {
+                "PointPoolRogueSkillPointsMulticlass"} },
         };
 
         private static readonly Dictionary<string, List<string>> featuresToExclude = new Dictionary<string, List<string>>
         {
             { "Barbarian", new List<string> {
+                "ProficiencyBarbarianArmor",
                 "PointPoolBarbarianrSkillPoints",
                 "ProficiencyBarbarianSavingThrow" } },
 
@@ -41,17 +42,21 @@ namespace SolastaUnfinishedBusiness.Models
                 "ProficiencyDruidSavingThrow" } },
 
             { "Fighter", new List<string> {
+                "ProficiencyFighterArmor",
                 "PointPoolFighterSkillPoints",
                 "ProficiencyFighterSavingThrow" } },
 
             { "Paladin", new List<string> {
+                "ProficiencyPaladinArmor",
                 "PointPoolPaladinSkillPoints",
                 "ProficiencyPaladinSavingThrow" } },
 
             { "Ranger", new List<string> {
+                "PointPoolRangerSkillPoints",
                 "ProficiencyRangerSavingThrow" } },
 
             { "Rogue", new List<string> {
+                "PointPoolRogueSkillPoints",
                 "ProficiencyRogueWeapon",
                 "ProficiencyRogueSavingThrow" } },
 
@@ -80,14 +85,6 @@ namespace SolastaUnfinishedBusiness.Models
                 "ClassWarlockWeaponProficiency",
                 "ClassWarlockSkillProficiency",
                 "ClassWarlockSavingThrowProficiency" } },
-        };
-
-        private static readonly Dictionary<string, string> extraAttacksToExclude = new Dictionary<string, string>
-        {
-            { "Barbarian", "AttributeModifierBarbarianExtraAttack" },
-            { "Fighter", "AttributeModifierFighterExtraAttack" },
-            { "Paladin", "AttributeModifierPaladinExtraAttack" },
-            { "Ranger", "AttributeModifierRangerExtraAttack" },
         };
 
         private static bool levelingUp = false;
@@ -201,52 +198,54 @@ namespace SolastaUnfinishedBusiness.Models
                 var firstClassName = selectedHero.ClassesHistory[0].Name;
                 var selectedClassName = selectedClass.Name;
 
-                featuresToReplace.TryGetValue(selectedClassName, out var featureNamesToReplace);
+                if (SelectedClassLevel == 1)
+                {
+                    featuresToAdd.TryGetValue(selectedClassName, out var featuresNamesToAdd);
+                    if (featuresToAdd != null)
+                    {
+                        foreach (var fName in featuresNamesToAdd)
+                        {
+                            var f = DatabaseRepository.GetDatabase<FeatureDefinition>().GetElement(fName);
+                            filteredFeatureUnlockByLevels.Add(new FeatureUnlockByLevel(f, 1));
+                        }
+                    }
+                }
                 featuresToExclude.TryGetValue(selectedClassName, out var featureNamesToExclude);
-                extraAttacksToExclude.TryGetValue(selectedClassName, out var extraAttackNameToExclude);
 
                 foreach (var featureUnlock in featureUnlockByLevels)
                 {
-                    var AttacksNumberAttribute = selectedHero.GetAttribute("AttacksNumber", true);
                     var featureDefinitionName = featureUnlock.FeatureDefinition.Name;
                     var foundFeatureToExclude = false;
-                    var foundFeatureToReplace = false;
                     var foundExtraAttackToExclude = false;
 
                     if (firstClassName != selectedClassName)
                     {
-                        // replace proficiencies that need to be
-                        if (featureNamesToReplace != null)
-                        {
-                            foreach (var featureNameToReplace in featureNamesToReplace)
-                            {
-                                if (featureNameToReplace.Key == featureUnlock.FeatureDefinition.Name)
-                                {
-                                    var newFeatureDefinition = DatabaseRepository.GetDatabase<FeatureDefinition>().GetElement(featureNameToReplace.Value);
-
-                                    filteredFeatureUnlockByLevels.Add(new FeatureUnlockByLevel(newFeatureDefinition, featureUnlock.Level));
-                                    foundFeatureToReplace = true;
-                                }
-                            }
-                        }
-
                         // check if proficiencies should be excluded
                         if (featureNamesToExclude != null)
                         {
                             foundFeatureToExclude = featureNamesToExclude.Exists(x => x == featureDefinitionName);
                         }
-
                     }
 
                     // check if extra attacks should be excluded
-                    if (Main.Settings.EnableNonStackingExtraAttacks)
+                    if (Main.Settings.EnableNonStackingExtraAttacks 
+                        && ModHelpers.isFeatureIncreasesAttacksCount(featureUnlock.FeatureDefinition)
+                        && selectedHero.ActiveFeatures.Values.Any(v => v.Any(f => ModHelpers.isFeatureIncreasesAttacksCount(featureUnlock.FeatureDefinition))))
                     {
-                        foundExtraAttackToExclude = extraAttackNameToExclude == featureDefinitionName && AttacksNumberAttribute?.ActiveModifiers.Count > 0
-                            && !(selectedClass.Name == "Fighter" && (SelectedClassLevel == 11 || SelectedClassLevel == 20));
+                        //check if this is an upgrade feature
+                        //i. e. there is at least one other attack count incresing feature at lower level, that could be acquired from this class
+                        var all_attack_features = selectedClass.FeatureUnlocks.Where(f => ModHelpers.isFeatureIncreasesAttacksCount(featureUnlock.FeatureDefinition)).ToList();
+                        if (selectedSubclass != null)
+                        {
+                            all_attack_features.AddRange(selectedSubclass.FeatureUnlocks.Where(f => ModHelpers.isFeatureIncreasesAttacksCount(featureUnlock.FeatureDefinition)).ToList());
+                        }
+                        bool isAttackCountUpgrade = all_attack_features.Count > 1 && all_attack_features.Min(f => f.level) < SelectedClassLevel;
+
+                        foundExtraAttackToExclude = !isAttackCountUpgrade;
                     }
 
                     // only add if not supposed to be excluded
-                    if (!foundFeatureToReplace && !foundFeatureToExclude && !foundExtraAttackToExclude)
+                    if (!foundFeatureToExclude && !foundExtraAttackToExclude)
                     {
                         filteredFeatureUnlockByLevels.Add(featureUnlock);
                     }

@@ -16,6 +16,19 @@ namespace SolastaUnfinishedBusiness.Utils
             return characterClass.equipmentRows.Any(er => er.equipmentColumns.Any(ec => ec.equipmentOptions.Any(eo => eo.itemReference == item)));
         }
 
+        internal static bool isFeatureIncreasesAttacksCount(FeatureDefinition feature)
+        {
+            var attack_modifier = feature as FeatureDefinitionAttributeModifier;
+            if (attack_modifier == null)
+            {
+                return false;
+            }
+
+            return attack_modifier.modifiedAttribute == "AttacksNumber" 
+                    && attack_modifier.modifierValue == 1
+                    && attack_modifier.modifierType2 == FeatureDefinitionAttributeModifier.AttributeModifierOperation.Additive;
+        }
+
 
         internal static bool shouldGrantItemOnMCLevelUp(RulesetCharacterHero hero, CharacterClassDefinition characterClass, ItemDefinition item)
         {

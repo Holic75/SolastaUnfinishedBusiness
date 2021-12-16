@@ -7,6 +7,34 @@ namespace SolastaUnfinishedBusiness.Models
 {
     internal static class LevelUpContext
     {
+        internal static readonly Dictionary<string, List<Dictionary<string, int>>> inOutPrerequisites = new Dictionary<string, List<Dictionary<string, int>>>
+        {
+            {"Barbarian", new List<Dictionary<string, int>> {
+                new Dictionary<string, int>{ { "Strength", 13 } } } },
+            {"Cleric", new List<Dictionary<string, int>> {
+                new Dictionary<string, int>{ { "Wisdom", 13 } } } },
+            {"Druid", new List<Dictionary<string, int>> {
+                new Dictionary<string, int>{ { "Wisdom", 13 } } } },
+            {"Fighter", new List<Dictionary<string, int>> {
+                new Dictionary<string, int>{ { "Strength", 13 } },
+                new Dictionary<string, int>{ { "Dexterity", 13 } }} },
+            {"Paladin", new List<Dictionary<string, int>> {
+                new Dictionary<string, int>{ { "Strength", 13 } } } },
+            {"Ranger", new List<Dictionary<string, int>> {
+                new Dictionary<string, int>{ { "Dexterity", 13 }, { "Wisdom", 13 } } } },
+            {"Rogue", new List<Dictionary<string, int>> {
+                new Dictionary<string, int>{ { "Dexterity", 13 } } } },
+            {"Sorcerer", new List<Dictionary<string, int>> {
+                new Dictionary<string, int>{ { "Charisma", 13 } } } },
+            {"Wizard", new List<Dictionary<string, int>> {
+                new Dictionary<string, int>{ { "Intelligence", 13 } } } },
+            {"ClassTinkerer", new List<Dictionary<string, int>> {
+                new Dictionary<string, int>{ { "Intelligence", 13 } } } },
+            {"ClassWarlock", new List<Dictionary<string, int>> {
+                new Dictionary<string, int>{ { "Charisma", 13 } } } }
+
+        };
+
         private static readonly Dictionary<string, List<string>> featuresToAdd = new Dictionary<string, List<string>>
         {
             { "Barbarian", new List<string> {
@@ -191,14 +219,15 @@ namespace SolastaUnfinishedBusiness.Models
 
         internal static List<FeatureUnlockByLevel> SelectedClassFilteredFeaturesUnlocks(List<FeatureUnlockByLevel> featureUnlockByLevels)
         {
-            var filteredFeatureUnlockByLevels = new List<FeatureUnlockByLevel>();
+
+           var filteredFeatureUnlockByLevels = new List<FeatureUnlockByLevel>();
 
             if (LevelingUp)
             {
                 var firstClassName = selectedHero.ClassesHistory[0].Name;
                 var selectedClassName = selectedClass.Name;
 
-                if (SelectedClassLevel == 1)
+                if (SelectedClassLevel == 0 && firstClassName != selectedClassName)
                 {
                     featuresToAdd.TryGetValue(selectedClassName, out var featuresNamesToAdd);
                     if (featuresToAdd != null)
@@ -234,12 +263,12 @@ namespace SolastaUnfinishedBusiness.Models
                     {
                         //check if this is an upgrade feature
                         //i. e. there is at least one other attack count incresing feature at lower level, that could be acquired from this class
-                        var all_attack_features = selectedClass.FeatureUnlocks.Where(f => ModHelpers.isFeatureIncreasesAttacksCount(featureUnlock.FeatureDefinition)).ToList();
+                        var all_attack_features = selectedClass.featureUnlocks.Where(f => ModHelpers.isFeatureIncreasesAttacksCount(featureUnlock.FeatureDefinition)).ToList();
                         if (selectedSubclass != null)
                         {
-                            all_attack_features.AddRange(selectedSubclass.FeatureUnlocks.Where(f => ModHelpers.isFeatureIncreasesAttacksCount(featureUnlock.FeatureDefinition)).ToList());
+                            all_attack_features.AddRange(selectedSubclass.featureUnlocks.Where(f => ModHelpers.isFeatureIncreasesAttacksCount(featureUnlock.FeatureDefinition)).ToList());
                         }
-                        bool isAttackCountUpgrade = all_attack_features.Count > 1 && all_attack_features.Min(f => f.level) < SelectedClassLevel;
+                        bool isAttackCountUpgrade = all_attack_features.Count > 1 && all_attack_features.Min(f => f.level) < (SelectedClassLevel + 1);
 
                         foundExtraAttackToExclude = !isAttackCountUpgrade;
                     }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace SolastaUnfinishedBusiness.Models
 {
@@ -46,77 +47,31 @@ namespace SolastaUnfinishedBusiness.Models
 
         internal static bool ApproveMultiClassInOut(RulesetCharacterHero hero, CharacterClassDefinition classDefinition)
         {
-            var strength = hero.GetAttribute(AttributeDefinitions.Strength).CurrentValue;
-            var dexterity = hero.GetAttribute(AttributeDefinitions.Dexterity).CurrentValue;
-            var intelligence = hero.GetAttribute(AttributeDefinitions.Intelligence).CurrentValue;
-            var wisdom = hero.GetAttribute(AttributeDefinitions.Wisdom).CurrentValue;
-            var charisma = hero.GetAttribute(AttributeDefinitions.Charisma).CurrentValue;
-
             if (classDefinition.GuiPresentation.Hidden)
             {
                 return false;
             }
 
-            switch (classDefinition.Name)
+            if (!LevelUpContext.inOutPrerequisites.ContainsKey(classDefinition.Name))
             {
-                case "Barbarian":
-                    return strength >= 13;
-
-                //case "Bard":
-                //case "Warlock":
-                case "Sorcerer":
-                case "ClassWarlock": // Zappastuff's Warlock
-                    return charisma >= 13;
-
-                case "Cleric":
-                case "Druid":
-                    return wisdom >= 13;
-
-                case "Fighter":
-                    return strength >= 13 || dexterity >= 13;
-
-                //case "Monk":
-                case "Ranger":
-                    return dexterity >= 13 && wisdom >= 13;
-
-                case "Paladin":
-                    return strength >= 13 && charisma >= 13;
-
-                case "Rogue":
-                    return dexterity >= 13;
-
-                case "ClassTinkerer": // CJD's Tinkerer
-                case "Wizard":
-                    return intelligence >= 13;
-
-                default:
-                    return false;
+                return false;
             }
+
+            var prerequisites = LevelUpContext.inOutPrerequisites[classDefinition.Name];
+            foreach (var p in prerequisites)
+            {
+                if (p.All(kv => hero.GetAttribute(kv.Key).CurrentValue >= kv.Value))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         internal static bool IsSupported(CharacterClassDefinition classDefinition)
         {
-            switch (classDefinition.Name)
-            {
-                case "Barbarian":
-                //case "Bard":
-                case "Sorcerer":
-                //case "Warlock":
-                case "ClassWarlock": // Zappastuff's Warlock
-                case "Cleric":
-                case "Druid":
-                case "Fighter":
-                //case "Monk":
-                case "Ranger":
-                case "Paladin":
-                case "Rogue":
-                case "ClassTinkerer": // CJD's Tinkerer
-                case "Wizard":
-                    return true;
-
-                default:
-                    return false;
-            }
+            return LevelUpContext.inOutPrerequisites.ContainsKey(classDefinition.Name);
         }
     }
 }

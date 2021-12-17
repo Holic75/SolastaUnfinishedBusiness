@@ -245,7 +245,6 @@ namespace SolastaUnfinishedBusiness.Patches
                 if (Models.LevelUpContext.LevelingUp && Models.LevelUpContext.IsMulticlass)
                 {
                     var localTag = tag;
-
                     __result = null;
 
                     if (localTag.StartsWith("03Class"))
@@ -288,7 +287,6 @@ namespace SolastaUnfinishedBusiness.Patches
                         }
                     }
                 }
-
                 return !(Models.LevelUpContext.LevelingUp && Models.LevelUpContext.IsMulticlass);
             }
         }
@@ -324,7 +322,7 @@ namespace SolastaUnfinishedBusiness.Patches
                                 continue;
                             }
 
-                            poolName = AttributeDefinitions.GetSubclassTag(Models.LevelUpContext.SelectedClass, Models.LevelUpContext.SelectedClassLevel, Models.LevelUpContext.SelectedSubclass); // SelectedClassLevel ???
+                            poolName = AttributeDefinitions.GetSubclassTag(Models.LevelUpContext.SelectedClass, Models.LevelUpContext.SelectedClassLevel, spellRepertoire.SpellCastingSubclass); // SelectedClassLevel ???
                         }
                         else if (spellRepertoire.SpellCastingFeature.SpellCastingOrigin == FeatureDefinitionCastSpell.CastingOrigin.Race)
                         {

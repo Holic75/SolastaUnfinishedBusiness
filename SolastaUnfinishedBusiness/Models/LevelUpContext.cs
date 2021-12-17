@@ -104,7 +104,21 @@ namespace SolastaUnfinishedBusiness.Models
             }
         }
 
-        internal static CharacterSubclassDefinition SelectedSubclass { get => selectedSubclass; set => selectedSubclass = value; }
+        internal static CharacterSubclassDefinition SelectedSubclass { get
+                                                                        {
+                                                                            if (selectedSubclass != null)
+                                                                            {
+                                                                                return selectedSubclass;
+                                                                            }
+
+                                                                            if (SelectedClass != null && (SelectedHero?.ClassesAndSubclasses.ContainsKey(SelectedClass)).GetValueOrDefault())
+                                                                            {
+                                                                                return SelectedHero.ClassesAndSubclasses[SelectedClass];
+                                                                            }
+                                                                            return null;
+                                                                        }
+                                                                       set => selectedSubclass = value;
+                                                                    }
 
         internal static int SelectedHeroLevel
         {
